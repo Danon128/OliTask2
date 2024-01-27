@@ -5,7 +5,6 @@ import math
 
 def img_rotate(fname, fname_pr):
     image_original = cv.imread(fname, cv.IMREAD_GRAYSCALE)
-    # final = cv.imread(fname, cv.IMREAD_COLOR)
 
     # очистка от шумов
     image_clean = cv.adaptiveThreshold(image_original, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 11, 10)
@@ -40,4 +39,4 @@ def img_rotate(fname, fname_pr):
 
 
 if __name__ == "__main__":
-    img_rotate("sample3.jpg", "result.jpg")
+    img_rotate("<<Write here input file name>>.jpg", "result.jpg")
