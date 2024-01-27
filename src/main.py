@@ -5,11 +5,7 @@ import math
 
 def img_rotate(fname, fname_pr):
     image_original = cv.imread(fname, cv.IMREAD_GRAYSCALE)
-
-    # очистка от шумов
-    image_clean = cv.adaptiveThreshold(image_original, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 11, 10)
-    cv.imwrite("clean.jpg", image_clean)
-
+    
     # выделение границ Кэнни
     image_conf = cv.Canny(image_original, 850, 900)
     cv.imwrite("conf.jpg", image_conf)
