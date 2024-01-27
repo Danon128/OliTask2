@@ -5,12 +5,10 @@ import math
 
 def img_rotate(fname, fname_pr):
     image_original = cv.imread(fname, cv.IMREAD_GRAYSCALE)
-    final = cv.imread(fname, cv.IMREAD_COLOR)
+    # final = cv.imread(fname, cv.IMREAD_COLOR)
 
     # очистка от шумов
-    image_clean = cv.adaptiveThreshold(
-        image_original, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 11, 10
-    )
+    image_clean = cv.adaptiveThreshold(image_original, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 11, 10)
     cv.imwrite("clean.jpg", image_clean)
 
     # выделение границ Кэнни
@@ -28,14 +26,7 @@ def img_rotate(fname, fname_pr):
                 continue
             deg = math.degrees(math.atan((line[3] - line[1]) / (line[2] - line[0])))
             if -40 < deg < 40:
-                cv.line(
-                    image_conf_lines,
-                    (line[0], line[1]),
-                    (line[2], line[3]),
-                    (0, 0, 255),
-                    1,
-                    cv.LINE_AA,
-                )
+                cv.line(image_conf_lines, (line[0], line[1]), (line[2], line[3]), (0, 0, 255), 1, cv.LINE_AA)
                 lines_angles.append(deg)
 
     cv.imwrite("image_conf_lines.jpg", image_conf_lines)
@@ -44,9 +35,7 @@ def img_rotate(fname, fname_pr):
     (h, w) = image_original.shape[:2]
     center = (w / 2, h / 2)
     image_rotation_matrix = cv.getRotationMatrix2D(center, rotation_angle, 1.0)
-    image_rotated = cv.warpAffine(
-        image_original, image_rotation_matrix, (w, h), borderMode=cv.BORDER_REPLICATE
-    )
+    image_rotated = cv.warpAffine(image_original, image_rotation_matrix, (w, h), borderMode=cv.BORDER_REPLICATE)
     cv.imwrite(fname_pr, image_rotated)
 
 
